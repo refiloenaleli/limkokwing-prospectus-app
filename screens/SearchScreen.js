@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, TextInput, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { Colors } from '../constants/colors';
 import { allCourses } from '../data/faculties';
 
 export default function SearchScreen({ navigation }) {
@@ -9,86 +10,73 @@ export default function SearchScreen({ navigation }) {
     : [];
 
   return (
-    <ScrollView 
-      style={styles.scrollContainer}
-      contentContainerStyle={styles.scrollContent}
-      showsVerticalScrollIndicator={false}
-    >
-      <Text style={styles.title}>Search Courses</Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Enter course name..."
-        placeholderTextColor="#94A3B8"
-        value={query}
-        onChangeText={setQuery}
-      />
-
-      <FlatList
-        data={filtered}
-        keyExtractor={item => item.name}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={styles.card}
-            activeOpacity={0.88}
-            onPress={() => navigation.navigate('Course', { course: item })}
-          >
-            <Text style={styles.courseName}>{item.name}</Text>
-            <Text style={styles.faculty}>{item.faculty}</Text>
-          </TouchableOpacity>
-        )}
-      />
-    </ScrollView>
+    <FlatList
+      data={filtered}
+      keyExtractor={item => item.name}
+      ListHeaderComponent={
+        <>
+          <Text style={styles.title}>Search Courses</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Enter course name..."
+            placeholderTextColor={Colors.textSecondary}
+            value={query}
+            onChangeText={setQuery}
+          />
+        </>
+      }
+      renderItem={({ item }) => (
+        <TouchableOpacity
+          style={styles.card}
+          onPress={() => navigation.navigate('Course', { course: item })}
+        >
+          <Text style={styles.courseName}>{item.name}</Text>
+          <Text style={styles.faculty}>{item.faculty}</Text>
+        </TouchableOpacity>
+      )}
+      contentContainerStyle={styles.container}
+    />
   );
 }
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flex: 1,
-    backgroundColor: '#000000',
-  },
-  scrollContent: {
+  container: {
     padding: 24,
-    paddingBottom: 60,
+    backgroundColor: Colors.background,
   },
   title: {
     fontSize: 30,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: Colors.primary,
     textAlign: 'center',
     marginBottom: 24,
   },
   input: {
-    backgroundColor: '#111827',
-    color: '#F1F5F9',
+    backgroundColor: Colors.card,
+    color: Colors.textPrimary,
     padding: 18,
     borderRadius: 16,
     marginBottom: 28,
     fontSize: 16,
     borderWidth: 1,
-    borderColor: '#1F2937',
+    borderColor: Colors.border,
   },
   card: {
-    backgroundColor: '#111827',
+    backgroundColor: Colors.card,
     padding: 20,
     borderRadius: 16,
     marginBottom: 16,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.35,
-    shadowRadius: 8,
     borderWidth: 1,
-    borderColor: '#1F2937',
+    borderColor: Colors.border,
   },
   courseName: {
     fontSize: 19,
     fontWeight: '600',
-    color: '#F1F5F9',
+    color: Colors.textPrimary,
     marginBottom: 6,
   },
   faculty: {
     fontSize: 14,
-    color: '#94A3B8',
+    color: Colors.textSecondary,
   },
 });

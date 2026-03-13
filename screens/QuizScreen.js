@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from 'react-native';
+import { Colors } from '../constants/colors';
 import faculties from '../data/faculties';
 
 const questions = [
@@ -32,7 +33,7 @@ export default function QuizScreen({ navigation }) {
   };
 
   return (
-    <ScrollView 
+    <ScrollView
       style={styles.scrollContainer}
       contentContainerStyle={styles.scrollContent}
       showsVerticalScrollIndicator={false}
@@ -42,7 +43,7 @@ export default function QuizScreen({ navigation }) {
         <Text style={styles.question}>{questions[index]}</Text>
 
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#34D399' }]}
+          style={[styles.button, { backgroundColor: Colors.success }]}
           activeOpacity={0.85}
           onPress={() => answer(true)}
         >
@@ -50,7 +51,7 @@ export default function QuizScreen({ navigation }) {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={[styles.button, { backgroundColor: '#FBBF24' }]}
+          style={[styles.button, { backgroundColor: Colors.accent }]}
           activeOpacity={0.85}
           onPress={() => answer(false)}
         >
@@ -64,7 +65,7 @@ export default function QuizScreen({ navigation }) {
 const styles = StyleSheet.create({
   scrollContainer: {
     flex: 1,
-    backgroundColor: '#000000',
+    backgroundColor: Colors.background,
   },
   scrollContent: {
     flexGrow: 1,
@@ -80,13 +81,13 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 32,
     fontWeight: '800',
-    color: '#FFFFFF',
+    color: Colors.primary,
     marginBottom: 60,
   },
   question: {
     fontSize: 22,
     textAlign: 'center',
-    color: '#E2E8F0',
+    color: Colors.textPrimary,
     marginBottom: 60,
     paddingHorizontal: 20,
     lineHeight: 32,
@@ -97,11 +98,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     alignItems: 'center',
     marginBottom: 24,
-    elevation: 6,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.4,
-    shadowRadius: 10,
   },
   buttonText: {
     color: '#FFFFFF',
